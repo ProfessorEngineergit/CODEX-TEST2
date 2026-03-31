@@ -20,6 +20,6 @@
   "homepage": "https://github.com/ProfessorEngineergit/CODEX-TEST2#readme",
   "dependencies": {
     "chart.js": "^4.4.0",
-    "three": "^0.134.0"
+    "three": "^0.137.0"
   }
 }
