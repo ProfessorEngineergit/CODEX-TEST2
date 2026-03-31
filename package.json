@@ -1,0 +1,25 @@
+{
+  "name": "codex-test2",
+  "version": "1.0.0",
+  "description": "A fully interactive, skeuomorphic full-stack benchmark website built with **Three.js**, **Chart.js**, and vanilla JavaScript.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProfessorEngineergit/CODEX-TEST2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ProfessorEngineergit/CODEX-TEST2/issues"
+  },
+  "homepage": "https://github.com/ProfessorEngineergit/CODEX-TEST2#readme",
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "three": "^0.134.0"
+  }
+}
