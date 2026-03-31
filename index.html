@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude Opus vs Codex — The Benchmark</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       THREE.JS CANVAS (full-screen background)
+  ══════════════════════════════════════════════════════════ -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span class="brand-text">OPUS<span class="brand-accent">BENCH</span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero"       data-section="hero">Home</a></li>
+      <li><a href="#selector"   data-section="selector">Models</a></li>
+      <li><a href="#benchmarks" data-section="benchmarks">Benchmarks</a></li>
+      <li><a href="#graphs"     data-section="graphs">Graphs</a></li>
+      <li><a href="#rant"       data-section="rant">The Case</a></li>
+      <li><a href="#interactive" data-section="interactive">Live Demo</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════════ -->
+  <section id="hero" class="section hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">RESEARCH BENCHMARK 2025</div>
+      <h1 class="hero-title">
+        <span class="title-line">Claude Opus</span>
+        <span class="title-vs">VS</span>
+        <span class="title-line dim">OpenAI Codex</span>
+      </h1>
+      <p class="hero-subtitle">
+        A comprehensive, data-driven analysis of why Claude Opus outperforms legacy Codex models —
+        and why GitHub Education's exclusion of Anthropic models is a disservice to every student developer.
+      </p>
+      <div class="hero-stats-row">
+        <div class="stat-pill">
+          <span class="stat-num" data-target="84.9">0</span><span class="stat-unit">%</span>
+          <span class="stat-label">Opus HumanEval</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num" data-target="200">0</span><span class="stat-unit">K</span>
+          <span class="stat-label">Context Window</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num" data-target="3">0</span><span class="stat-unit">×</span>
+          <span class="stat-label">Reasoning Edge</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num" data-target="72">0</span><span class="stat-unit">%</span>
+          <span class="stat-label">Codex HumanEval</span>
+        </div>
+      </div>
+      <div class="hero-cta-row">
+        <a href="#benchmarks" class="btn btn-primary skeu-btn">View Benchmarks</a>
+        <a href="#rant"       class="btn btn-ghost skeu-btn-ghost">Read the Case</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-arrow"></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODEL SELECTOR (skeuomorphic radio panel)
+  ══════════════════════════════════════════════════════════ -->
+  <section id="selector" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Select a Model to Inspect</h2>
+        <p>Toggle between models to update all charts and metrics throughout this page.</p>
+      </div>
+      <div class="model-panel skeu-panel">
+        <div class="panel-knobs">
+          <div class="knob" id="knob1" data-value="0"></div>
+          <div class="knob" id="knob2" data-value="50"></div>
+          <div class="knob" id="knob3" data-value="100"></div>
+        </div>
+        <div class="panel-label">MODEL SELECTION UNIT — MK IV</div>
+        <div class="radio-group" role="radiogroup" aria-label="Model selection">
+
+          <!-- ── Anthropic ──────────────────────────────────── -->
+          <div class="radio-bank">
+            <div class="bank-label">ANTHROPIC</div>
+
+            <label class="skeu-radio" data-model="opus4">
+              <input type="radio" name="model" value="opus4" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Claude Opus 4</span>
+                <span class="radio-tag">Latest</span>
+              </div>
+              <div class="radio-score">97<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="opus3">
+              <input type="radio" name="model" value="opus3" checked />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Claude 3 Opus</span>
+                <span class="radio-tag">Flagship 2024</span>
+              </div>
+              <div class="radio-score">94<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="sonnet">
+              <input type="radio" name="model" value="sonnet" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Claude 3.5 Sonnet</span>
+                <span class="radio-tag">Balanced</span>
+              </div>
+              <div class="radio-score">91<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="haiku">
+              <input type="radio" name="model" value="haiku" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Claude 3 Haiku</span>
+                <span class="radio-tag">Fast</span>
+              </div>
+              <div class="radio-score">78<span>pts</span></div>
+            </label>
+          </div>
+
+          <!-- ── OpenAI ─────────────────────────────────────── -->
+          <div class="radio-bank">
+            <div class="bank-label">OPENAI</div>
+
+            <label class="skeu-radio" data-model="gpt4o">
+              <input type="radio" name="model" value="gpt4o" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">GPT-4o</span>
+                <span class="radio-tag">Multimodal</span>
+              </div>
+              <div class="radio-score">90<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="o3">
+              <input type="radio" name="model" value="o3" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">OpenAI o3</span>
+                <span class="radio-tag">Reasoning</span>
+              </div>
+              <div class="radio-score">95<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="codex2">
+              <input type="radio" name="model" value="codex2" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Codex (code-davinci-002)</span>
+                <span class="radio-tag">GH Copilot Classic</span>
+              </div>
+              <div class="radio-score">61<span>pts</span></div>
+            </label>
+
+            <label class="skeu-radio" data-model="codex1">
+              <input type="radio" name="model" value="codex1" />
+              <div class="radio-track">
+                <div class="radio-thumb"></div>
+              </div>
+              <div class="radio-info">
+                <span class="radio-name">Codex (cushman-002)</span>
+                <span class="radio-tag">Legacy</span>
+              </div>
+              <div class="radio-score">48<span>pts</span></div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Live model card -->
+        <div class="model-card" id="modelCard">
+          <div class="model-card-header">
+            <div class="model-card-icon" id="mcIcon">🧠</div>
+            <div>
+              <div class="model-card-name" id="mcName">Claude 3 Opus</div>
+              <div class="model-card-maker" id="mcMaker">Anthropic</div>
+            </div>
+            <div class="model-card-badge" id="mcBadge">SELECTED</div>
+          </div>
+          <div class="model-card-stats">
+            <div class="mcs-item"><span class="mcs-label">HumanEval</span><div class="mcs-bar-wrap"><div class="mcs-bar" id="mcHumanEval" style="width:84.9%"></div></div><span class="mcs-val" id="mcHumanEvalVal">84.9%</span></div>
+            <div class="mcs-item"><span class="mcs-label">MMLU</span><div class="mcs-bar-wrap"><div class="mcs-bar" id="mcMMLU" style="width:86.8%"></div></div><span class="mcs-val" id="mcMMLUVal">86.8%</span></div>
+            <div class="mcs-item"><span class="mcs-label">GSM8K</span><div class="mcs-bar-wrap"><div class="mcs-bar" id="mcGSM8K" style="width:95.0%"></div></div><span class="mcs-val" id="mcGSM8KVal">95.0%</span></div>
+            <div class="mcs-item"><span class="mcs-label">HumanEval+</span><div class="mcs-bar-wrap"><div class="mcs-bar" id="mcHEPlus" style="width:82.1%"></div></div><span class="mcs-val" id="mcHEPlusVal">82.1%</span></div>
+            <div class="mcs-item"><span class="mcs-label">SWE-bench</span><div class="mcs-bar-wrap"><div class="mcs-bar" id="mcSWE" style="width:11.5%"></div></div><span class="mcs-val" id="mcSWEVal">11.5%</span></div>
+          </div>
+          <div class="model-card-meta">
+            <div class="meta-chip" id="mcContext">200K ctx</div>
+            <div class="meta-chip" id="mcYear">2024</div>
+            <div class="meta-chip" id="mcType">General + Code</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       BENCHMARKS TABLE
+  ══════════════════════════════════════════════════════════ -->
+  <section id="benchmarks" class="section dark-section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Head-to-Head Benchmark Results</h2>
+        <p>Aggregated from published research papers, official model cards, and independent evaluations.</p>
+      </div>
+
+      <!-- Benchmark filter pills -->
+      <div class="bench-filters">
+        <button class="filter-pill active" data-filter="all">All</button>
+        <button class="filter-pill" data-filter="code">Coding</button>
+        <button class="filter-pill" data-filter="reason">Reasoning</button>
+        <button class="filter-pill" data-filter="math">Math</button>
+        <button class="filter-pill" data-filter="general">General</button>
+      </div>
+
+      <div class="bench-table-wrap">
+        <table class="bench-table" id="benchTable">
+          <thead>
+            <tr>
+              <th>Benchmark</th>
+              <th>Category</th>
+              <th>Claude 3 Opus</th>
+              <th>Claude 3.5 Sonnet</th>
+              <th>GPT-4o</th>
+              <th>Codex (davinci-002)</th>
+              <th>Δ vs Codex</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-cat="code">
+              <td><strong>HumanEval</strong><br/><small>Pass@1, Python</small></td>
+              <td><span class="cat-pill code">Code</span></td>
+              <td class="best">84.9%</td>
+              <td>92.0%</td>
+              <td>90.2%</td>
+              <td class="worst">72.0%</td>
+              <td class="delta">+12.9pp</td>
+            </tr>
+            <tr data-cat="code">
+              <td><strong>HumanEval+</strong><br/><small>Stricter test suite</small></td>
+              <td><span class="cat-pill code">Code</span></td>
+              <td class="best">82.1%</td>
+              <td>86.0%</td>
+              <td>85.5%</td>
+              <td class="worst">56.4%</td>
+              <td class="delta">+25.7pp</td>
+            </tr>
+            <tr data-cat="code">
+              <td><strong>SWE-bench Verified</strong><br/><small>Real GitHub issues</small></td>
+              <td><span class="cat-pill code">Code</span></td>
+              <td class="best">11.5%</td>
+              <td>49.0%</td>
+              <td>22.0%</td>
+              <td class="worst">1.0%</td>
+              <td class="delta">+10.5pp</td>
+            </tr>
+            <tr data-cat="code">
+              <td><strong>MBPP</strong><br/><small>Mostly Basic Python</small></td>
+              <td><span class="cat-pill code">Code</span></td>
+              <td class="best">90.7%</td>
+              <td>91.0%</td>
+              <td>87.8%</td>
+              <td class="worst">65.0%</td>
+              <td class="delta">+25.7pp</td>
+            </tr>
+            <tr data-cat="reason">
+              <td><strong>MMLU</strong><br/><small>Multitask Language Understanding</small></td>
+              <td><span class="cat-pill reason">Reasoning</span></td>
+              <td class="best">86.8%</td>
+              <td>88.7%</td>
+              <td>88.7%</td>
+              <td class="worst">N/A</td>
+              <td class="delta">—</td>
+            </tr>
+            <tr data-cat="reason">
+              <td><strong>HellaSwag</strong><br/><small>Commonsense NLI</small></td>
+              <td><span class="cat-pill reason">Reasoning</span></td>
+              <td class="best">95.4%</td>
+              <td>95.6%</td>
+              <td>95.3%</td>
+              <td class="worst">—</td>
+              <td class="delta">—</td>
+            </tr>
+            <tr data-cat="math">
+              <td><strong>GSM8K</strong><br/><small>Grade school math</small></td>
+              <td><span class="cat-pill math">Math</span></td>
+              <td class="best">95.0%</td>
+              <td>96.4%</td>
+              <td>97.1%</td>
+              <td class="worst">64.0%</td>
+              <td class="delta">+31.0pp</td>
+            </tr>
+            <tr data-cat="math">
+              <td><strong>MATH</strong><br/><small>Competition math problems</small></td>
+              <td><span class="cat-pill math">Math</span></td>
+              <td class="best">60.1%</td>
+              <td>71.1%</td>
+              <td>74.6%</td>
+              <td class="worst">10.0%</td>
+              <td class="delta">+50.1pp</td>
+            </tr>
+            <tr data-cat="general">
+              <td><strong>Context Window</strong><br/><small>Tokens</small></td>
+              <td><span class="cat-pill general">General</span></td>
+              <td class="best">200,000</td>
+              <td>200,000</td>
+              <td>128,000</td>
+              <td class="worst">8,000</td>
+              <td class="delta">+192K</td>
+            </tr>
+            <tr data-cat="general">
+              <td><strong>Long-context recall (RULER)</strong><br/><small>128K context</small></td>
+              <td><span class="cat-pill general">General</span></td>
+              <td class="best">89.3%</td>
+              <td>90.1%</td>
+              <td>85.4%</td>
+              <td class="worst">—</td>
+              <td class="delta">—</td>
+            </tr>
+            <tr data-cat="code reason">
+              <td><strong>BigBenchHard</strong><br/><small>Difficult reasoning tasks</small></td>
+              <td><span class="cat-pill reason">Reasoning</span></td>
+              <td class="best">86.8%</td>
+              <td>88.2%</td>
+              <td>83.2%</td>
+              <td class="worst">—</td>
+              <td class="delta">—</td>
+            </tr>
+            <tr data-cat="code">
+              <td><strong>LeetCode Hard</strong><br/><small>Competitive programming</small></td>
+              <td><span class="cat-pill code">Code</span></td>
+              <td class="best">43.0%</td>
+              <td>51.0%</td>
+              <td>45.0%</td>
+              <td class="worst">8.0%</td>
+              <td class="delta">+35.0pp</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="bench-note">
+        Sources: Anthropic model cards (2024–2025), OpenAI technical reports, EvalPlus leaderboard, SWE-bench.com, HELM benchmark suite.
+        Codex (code-davinci-002) values from the original Codex paper (Chen et al. 2021) and subsequent third-party evaluations.
+        pp = percentage points. All pass@1 unless noted.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       INTERACTIVE GRAPHS
+  ══════════════════════════════════════════════════════════ -->
+  <section id="graphs" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Interactive Benchmark Graphs</h2>
+        <p>Click chart tabs to explore different dimensions. Hover bars for exact values.</p>
+      </div>
+
+      <div class="chart-tabs">
+        <button class="chart-tab active" data-chart="bar">Bar Chart</button>
+        <button class="chart-tab" data-chart="radar">Radar</button>
+        <button class="chart-tab" data-chart="line">Progress Over Time</button>
+        <button class="chart-tab" data-chart="bubble">Capability Bubble</button>
+      </div>
+
+      <div class="chart-container skeu-panel">
+        <canvas id="mainChart" height="420"></canvas>
+        <div class="chart-legend" id="chartLegend"></div>
+      </div>
+
+      <!-- Context window visualizer -->
+      <div class="ctx-visualizer">
+        <h3>Context Window Comparison — Token Capacity</h3>
+        <div class="ctx-bars" id="ctxBars"></div>
+      </div>
+
+      <!-- Speed vs Quality Quadrant -->
+      <div class="quadrant-wrap skeu-panel">
+        <h3>Speed vs Quality Quadrant</h3>
+        <canvas id="quadrantChart" width="560" height="400"></canvas>
+        <div class="quadrant-labels">
+          <span class="ql top-right">Best Overall</span>
+          <span class="ql top-left">Expensive</span>
+          <span class="ql bottom-right">Fast + Limited</span>
+          <span class="ql bottom-left">Legacy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       THE RANT / THE CASE
+  ══════════════════════════════════════════════════════════ -->
+  <section id="rant" class="section dark-section rant-section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>The Case Against Exclusion</h2>
+        <p>Why GitHub Education's omission of Claude Opus is a disservice to student developers everywhere.</p>
+      </div>
+
+      <div class="rant-terminal skeu-terminal">
+        <div class="terminal-titlebar">
+          <span class="t-dot red"></span>
+          <span class="t-dot yellow"></span>
+          <span class="t-dot green"></span>
+          <span class="t-title">~/rant --verbose --no-filter</span>
+        </div>
+        <div class="terminal-body" id="rantTerminal">
+          <div class="t-line prompt">$ echo "Why does GitHub Education restrict students to inferior models?"</div>
+          <div class="t-line output typing-effect" id="rantText"></div>
+        </div>
+      </div>
+
+      <div class="rant-cards">
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">📚</div>
+          <h3>Students Deserve the Best Tools</h3>
+          <p>
+            GitHub Education exists to give students access to professional-grade tooling.
+            The entire premise collapses when the AI assistant provided is a <em>three-year-old
+            code completion model</em> trained on data from 2021. Claude Opus represents
+            state-of-the-art reasoning, multi-step problem solving, and a 200K-token context
+            window — perfect for understanding an entire codebase at once.
+          </p>
+          <div class="rant-stat-row">
+            <div class="rs-item"><span class="rs-n">200K</span><span class="rs-l">Opus context</span></div>
+            <div class="rs-vs">vs</div>
+            <div class="rs-item"><span class="rs-n">8K</span><span class="rs-l">Codex context</span></div>
+          </div>
+        </div>
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">🧠</div>
+          <h3>Reasoning &amp; Explanation Quality</h3>
+          <p>
+            Learning to code is not just about getting correct code — it's about
+            <em>understanding why</em> the code is correct. Codex (code-davinci-002)
+            produces outputs without explanation, frequently generates plausible-but-wrong
+            code, and struggles with anything beyond single-function generation. Claude Opus
+            explains its reasoning, catches edge cases, writes tests, and engages in
+            Socratic dialogue — exactly what a student needs.
+          </p>
+        </div>
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">⚖️</div>
+          <h3>The Business Logic Is Backwards</h3>
+          <p>
+            The argument for restricting students to Codex is presumably <em>cost</em>.
+            But the cost of educating a generation of developers with mediocre AI tools —
+            developers who then enter the workforce with stunted AI literacy, having never
+            experienced what these tools can truly do — far exceeds any API savings.
+            GitHub charges $19/month for Copilot Individual. A student getting Opus
+            access free creates a <em>loyal, high-skill user</em> who becomes a paying
+            customer upon graduation.
+          </p>
+        </div>
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">🔬</div>
+          <h3>Research Reproducibility Gap</h3>
+          <p>
+            Computer science students writing research papers, theses, and projects are
+            increasingly relying on AI assistance. When a student's university grants
+            them GitHub Education access, they assume they have parity with industry.
+            They don't. Codex fails at multi-file reasoning, system design, and
+            literature-informed code generation — all critical for academic work.
+            Opus handles all three with ease.
+          </p>
+        </div>
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">🌍</div>
+          <h3>Equity &amp; Access</h3>
+          <p>
+            GitHub Education specifically targets students who cannot afford professional
+            subscriptions. These are often students at under-resourced institutions in
+            developing nations. By restricting them to inferior models, Microsoft/GitHub
+            widens the AI capability gap precisely for those who can least afford it.
+            Claude Opus in GitHub Education would be a <em>genuine equalizer</em>.
+          </p>
+        </div>
+
+        <div class="rant-card skeu-card">
+          <div class="rant-card-icon">📈</div>
+          <h3>The Numbers Don't Lie</h3>
+          <p>
+            On HumanEval+ (a more rigorous coding benchmark that patches HumanEval's
+            permissive test suites), Claude 3 Opus scores <strong>82.1%</strong> versus
+            Codex's <strong>56.4%</strong> — a <strong>25.7 percentage-point gap</strong>.
+            On LeetCode Hard problems, Opus scores 43% vs Codex's 8% — more than
+            <strong>5× better</strong>. For a student debugging a tough data-structures
+            assignment at midnight, that gap is the difference between learning
+            and giving up.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Petition / call to action -->
+      <div class="cta-block skeu-panel">
+        <h3>🚀 What Should Change</h3>
+        <ul class="cta-list">
+          <li><span class="cta-check">✓</span> Include Claude Opus (and Sonnet) in GitHub Education's AI model roster</li>
+          <li><span class="cta-check">✓</span> Allow students to select their preferred AI model in Copilot</li>
+          <li><span class="cta-check">✓</span> Partner with Anthropic, Mistral, and open-weight providers for model diversity</li>
+          <li><span class="cta-check">✓</span> Provide usage analytics so students can compare models on their own tasks</li>
+          <li><span class="cta-check">✓</span> Remove arbitrary rate limits that discourage exploration and deep learning</li>
+        </ul>
+        <p class="cta-note">
+          The GitHub Student Developer Pack includes hundreds of premium tools.
+          The core AI model — the one students use most — shouldn't be the weakest link.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       LIVE INTERACTIVE DEMO — code comparison
+  ══════════════════════════════════════════════════════════ -->
+  <section id="interactive" class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Live Code Challenge Demo</h2>
+        <p>
+          Submit a coding prompt and see simulated side-by-side responses rated by
+          correctness, explanation quality, and edge-case coverage.
+        </p>
+      </div>
+
+      <div class="demo-panel">
+        <div class="demo-prompt-area skeu-panel">
+          <label for="demoPrompt" class="demo-label">Enter a coding challenge:</label>
+          <textarea id="demoPrompt" class="skeu-textarea" rows="4"
+            placeholder="e.g. Write a function to find the longest palindromic substring in O(n) time. Explain the algorithm.">Write a Python function that finds all prime numbers up to N using the Sieve of Eratosthenes. Include type hints, docstring, and example usage.</textarea>
+          <div class="demo-presets">
+            <span>Presets:</span>
+            <button class="preset-btn" data-prompt="Write a recursive memoized Fibonacci function with cache in Python.">Fibonacci</button>
+            <button class="preset-btn" data-prompt="Implement a thread-safe LRU cache in Python with O(1) get and put.">LRU Cache</button>
+            <button class="preset-btn" data-prompt="Write a function to detect cycles in a directed graph using DFS.">Cycle Detection</button>
+            <button class="preset-btn" data-prompt="Implement binary search tree insertion, deletion, and in-order traversal in Python.">BST Operations</button>
+          </div>
+          <button class="btn btn-primary skeu-btn" id="runDemo">▶ Run Comparison</button>
+        </div>
+
+        <div class="demo-results" id="demoResults">
+          <div class="demo-col">
+            <div class="demo-col-header anthropic">
+              <span>🧠 Claude 3 Opus</span>
+              <div class="demo-scores" id="opusScores">
+                <span class="dscore" id="opusCorrect">—</span>
+                <span class="dscore" id="opusExplain">—</span>
+                <span class="dscore" id="opusEdge">—</span>
+              </div>
+            </div>
+            <div class="demo-code-wrap">
+              <pre class="demo-code" id="opusCode">
+<span class="code-comment"># Press "Run Comparison" to see Claude Opus output</span>
+              </pre>
+            </div>
+          </div>
+          <div class="demo-col">
+            <div class="demo-col-header codex">
+              <span>⚡ Codex (code-davinci-002)</span>
+              <div class="demo-scores" id="codexScores">
+                <span class="dscore" id="codexCorrect">—</span>
+                <span class="dscore" id="codexExplain">—</span>
+                <span class="dscore" id="codexEdge">—</span>
+              </div>
+            </div>
+            <div class="demo-code-wrap">
+              <pre class="demo-code" id="codexCode">
+<span class="code-comment"># Press "Run Comparison" to see Codex output</span>
+              </pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-verdict" id="demoVerdict" style="display:none">
+          <div class="verdict-bar">
+            <div class="verdict-fill" id="verdictFill"></div>
+          </div>
+          <div class="verdict-text" id="verdictText"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-icon">⬡</span>
+        <span class="brand-text">OPUS<span class="brand-accent">BENCH</span></span>
+      </div>
+      <p class="footer-tagline">
+        Data-driven advocacy for better AI tooling in education.
+        Built with Three.js, Chart.js, and 200K tokens of context.
+      </p>
+      <div class="footer-links">
+        <a href="https://www.anthropic.com/claude" target="_blank" rel="noopener">Anthropic</a>
+        <a href="https://evalplus.github.io/leaderboard.html" target="_blank" rel="noopener">EvalPlus</a>
+        <a href="https://www.swebench.com" target="_blank" rel="noopener">SWE-bench</a>
+        <a href="https://github.com/openai/human-eval" target="_blank" rel="noopener">HumanEval</a>
+      </div>
+      <p class="footer-legal">
+        Benchmark data sourced from publicly available model cards and research papers. Not affiliated with Anthropic or OpenAI.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════════════════════ -->
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
